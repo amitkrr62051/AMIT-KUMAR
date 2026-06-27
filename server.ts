@@ -119,18 +119,27 @@ GUIDELINES FOR CHATTING:
   });
 
   // Configure Vite or Static server
-  if (process.env.NODE_ENV !== 'production') {
-    // Dynamic import to prevent top-level require in production
-    const { createServer } = await import('vite');
-    const vite = await createServer({
-      server: { middlewareMode: true },
-      appType: 'spa',
-    });
-    app.use(vite.middlewares);
-  } else {
+  let isProduction = process.env.NODE_ENV === 'production';
+
+  if (!isProduction) {
+    try {
+      // Dynamic import to prevent top-level require in production
+      const { createServer } = await import('vite');
+      const vite = await createServer({
+        server: { middlewareMode: true },
+        appType: 'spa',
+      });
+      app.use(vite.middlewares);
+    } catch (e) {
+      console.warn('Vite failed to load, falling back to static production mode:', e);
+      isProduction = true;
+    }
+  }
+
+  if (isProduction) {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
-    app.get('*', (req, res) => {
+    app.get('*all', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });
   }

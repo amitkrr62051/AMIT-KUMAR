@@ -4,14 +4,31 @@ import { AnimatePresence, motion } from 'motion/react';
 import { MessageCircle } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import Services from './pages/Services';
-import Portfolio from './pages/Portfolio';
-import Contact from './pages/Contact';
-import Resume from './pages/Resume';
 import AIChatbot from './components/AIChatbot';
 import { CONTACT_INFO } from './constants';
 import { ThemeProvider } from './components/ThemeContext';
+
+// Lazy load major page components
+const Home = React.lazy(() => import('./pages/Home'));
+const Services = React.lazy(() => import('./pages/Services'));
+const Portfolio = React.lazy(() => import('./pages/Portfolio'));
+const Contact = React.lazy(() => import('./pages/Contact'));
+const Resume = React.lazy(() => import('./pages/Resume'));
+
+// Premium, elegant page loader spinner that matches the red-orange/slate theme
+const PageLoader = () => (
+  <div className="flex flex-col items-center justify-center min-h-[60vh] py-12">
+    <div className="relative flex items-center justify-center">
+      {/* Outer pulsing ring */}
+      <div className="absolute w-12 h-12 rounded-full border-4 border-red-500/15 animate-ping" />
+      {/* Inner loading circle */}
+      <div className="w-12 h-12 rounded-full border-4 border-red-500 border-t-transparent border-r-transparent animate-spin" />
+    </div>
+    <span className="mt-4 text-[10px] font-mono font-bold text-slate-400 dark:text-slate-500 tracking-widest uppercase animate-pulse">
+      Loading Experience...
+    </span>
+  </div>
+);
 
 // Scroll to top helper
 const ScrollToTop = () => {
@@ -135,7 +152,9 @@ const App: React.FC = () => {
         <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-300">
           <Navbar />
           <main className="flex-grow">
-            <AnimatedRoutes />
+            <React.Suspense fallback={<PageLoader />}>
+              <AnimatedRoutes />
+            </React.Suspense>
           </main>
           <Footer />
           <FloatingWhatsApp />
