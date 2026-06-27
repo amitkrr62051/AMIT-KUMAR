@@ -158,6 +158,14 @@ export const PROJECTS: Project[] = [
     description: "A social service organization dedicated to seva, support, and helping devotees and tourists in Kolkata.",
     imageUrl: "https://lh3.googleusercontent.com/d/1L7jX0L4XVI5P7ejkZPY1-spG-77E1hZC", 
     link: "https://www.kalighatshaktipeeth.com/"
+  },
+  {
+    id: 'p9',
+    title: "Usha International School",
+    category: "Education",
+    description: "A premium, fully responsive academic portal built for Usha International School, Patna. Designed with clean school-centric aesthetics, parent-teacher resources, online admission systems, and interactive curriculum pathways.",
+    imageUrl: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=800&q=80", 
+    link: "https://www.ushainternationalschool.com/"
   }
 ];
 

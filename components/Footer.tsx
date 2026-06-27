@@ -69,7 +69,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
           <p>© {new Date().getFullYear()} Amit Kumar. All Rights Reserved.</p>
           <p className="flex items-center mt-2 md:mt-0 bg-slate-800 px-4 py-1 rounded-full">
-            Made with <Heart className="w-4 h-4 mx-1.5 text-red-500 animate-pulse" fill="currentColor" /> in Bangalore
+            Made by Amit Kumar
           </p>
         </div>
       </div>

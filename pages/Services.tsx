@@ -12,15 +12,7 @@ import {
   Briefcase, 
   Heart, 
   ShoppingBag,
-  Globe,
-  Monitor,
-  Search,
-  MessageSquare,
-  Smartphone,
-  ShieldCheck,
   Layout,
-  MousePointer2,
-  Zap,
   Sparkles
 } from 'lucide-react';
 
@@ -99,11 +91,11 @@ const Services: React.FC = () => {
   ];
 
   return (
-    <div className="pt-24 pb-20 min-h-screen bg-slate-50 relative overflow-hidden">
+    <div className="pt-24 pb-20 min-h-screen bg-slate-50 dark:bg-slate-950 relative overflow-hidden transition-colors duration-300">
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-full h-full pointer-events-none -z-10 overflow-hidden">
-        <div className="absolute top-40 -right-20 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-30"></div>
-        <div className="absolute bottom-40 -left-20 w-[500px] h-[500px] bg-red-100 rounded-full blur-3xl opacity-20"></div>
+        <div className="absolute top-40 -right-20 w-96 h-96 bg-blue-100 dark:bg-blue-950/20 rounded-full blur-3xl opacity-30"></div>
+        <div className="absolute bottom-40 -left-20 w-[500px] h-[500px] bg-red-100 dark:bg-red-950/20 rounded-full blur-3xl opacity-20"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -115,14 +107,14 @@ const Services: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center max-w-4xl mx-auto mb-24 pt-10"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-xs font-black uppercase tracking-widest mb-6 border border-blue-100 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400 rounded-full text-xs font-black uppercase tracking-widest mb-6 border border-blue-100 dark:border-blue-900/30 shadow-sm">
             <Sparkles size={14} /> Build Your Online Presence
           </div>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-6 uppercase tracking-tighter leading-none">
-            Grow with <span className="text-blue-600 underline decoration-blue-200 underline-offset-8">Me</span>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white mb-6 uppercase tracking-tighter leading-none">
+            Grow with <span className="text-blue-600 underline decoration-blue-200 dark:decoration-blue-900 underline-offset-8">Me</span>
           </h1>
-          <p className="text-lg md:text-xl text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed px-4">
-            We create stunning, functional, and <span className="text-slate-900 font-bold border-b-2 border-blue-200">SEO-optimized</span> websites that help you grow online. 
+          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 font-medium max-w-2xl mx-auto leading-relaxed px-4">
+            We create stunning, functional, and <span className="text-slate-900 dark:text-white font-bold border-b-2 border-blue-200 dark:border-blue-900">SEO-optimized</span> websites that help you grow online. 
             Everything you need — from domain to chatbot — in one place.
           </p>
         </motion.div>
@@ -137,35 +129,35 @@ const Services: React.FC = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className="bg-white rounded-[3rem] p-8 md:p-10 shadow-sm border border-slate-100 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group flex flex-col items-center text-center relative overflow-hidden"
+              className="bg-white dark:bg-slate-900 rounded-[3rem] p-8 md:p-10 shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group flex flex-col items-center text-center relative overflow-hidden"
             >
                 {/* Number Badge */}
-                <div className="absolute top-0 right-0 w-20 h-20 bg-slate-50 flex items-center justify-center rounded-bl-[3rem] text-slate-200 font-black text-3xl transition-colors group-hover:text-blue-100">
+                <div className="absolute top-0 right-0 w-20 h-20 bg-slate-50 dark:bg-slate-800 flex items-center justify-center rounded-bl-[3rem] text-slate-200 dark:text-slate-700 font-black text-3xl transition-colors group-hover:text-blue-100 dark:group-hover:text-blue-900">
                     {service.id}
                 </div>
 
                 <div className="mb-8 relative z-10">
-                    <div className="w-20 h-20 mx-auto bg-slate-50 rounded-3xl flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                    <div className="w-20 h-20 mx-auto bg-slate-50 dark:bg-slate-800 rounded-3xl flex items-center justify-center group-hover:bg-blue-600 dark:group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300">
                         {service.icon}
                     </div>
                 </div>
 
                 <div className="flex-1 relative z-10 w-full">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block">{service.category}</span>
-                    <h3 className="text-2xl md:text-3xl font-black text-slate-900 mb-4 tracking-tighter group-hover:text-blue-600 transition-colors">{service.title}</h3>
-                    <p className="text-slate-600 mb-8 leading-relaxed font-medium text-sm md:text-base px-2">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2 block">{service.category}</span>
+                    <h3 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-4 tracking-tighter group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{service.title}</h3>
+                    <p className="text-slate-600 dark:text-slate-300 mb-8 leading-relaxed font-medium text-sm md:text-base px-2">
                         {service.description}
                     </p>
                     
                     <div className="mb-8 text-left inline-block w-full max-w-sm mx-auto">
-                        <h4 className="text-sm font-black text-slate-900 uppercase tracking-wider mb-4 flex items-center justify-center gap-2">
-                           <Layout size={16} className="text-blue-500" /> What's Included:
+                        <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider mb-4 flex items-center justify-center gap-2">
+                           <Layout size={16} className="text-blue-500 dark:text-blue-400" /> What's Included:
                         </h4>
                         <ul className="grid grid-cols-1 gap-2.5">
                             {service.included.map((item, i) => (
-                                <li key={i} className="flex items-start text-sm text-slate-500 font-medium group/item justify-center">
-                                    <div className="mt-0.5 bg-green-50 rounded-full p-1 mr-2 group-hover/item:bg-green-100 transition-colors shrink-0">
-                                        <Check size={10} className="text-green-600" />
+                                <li key={i} className="flex items-start text-sm text-slate-500 dark:text-slate-400 font-medium group/item justify-center">
+                                    <div className="mt-0.5 bg-green-50 dark:bg-green-950/30 rounded-full p-1 mr-2 group-hover/item:bg-green-100 dark:group-hover/item:bg-green-900/40 transition-colors shrink-0">
+                                        <Check size={10} className="text-green-600 dark:text-green-400" />
                                     </div>
                                     <span className="text-center">{item}</span>
                                 </li>
@@ -174,13 +166,13 @@ const Services: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="mt-auto pt-8 border-t border-slate-50 relative z-10 w-full">
-                    <div className="bg-blue-50 p-5 rounded-2xl border border-blue-100 mb-6 max-w-md mx-auto">
-                        <p className="text-sm text-blue-800 font-bold leading-relaxed">
-                            <span className="text-blue-600">🎯 Goal:</span> {service.goal}
+                <div className="mt-auto pt-8 border-t border-slate-50 dark:border-slate-800 relative z-10 w-full">
+                    <div className="bg-blue-50 dark:bg-blue-950/20 p-5 rounded-2xl border border-blue-100 dark:border-blue-900/30 mb-6 max-w-md mx-auto">
+                        <p className="text-sm text-blue-800 dark:text-blue-300 font-bold leading-relaxed">
+                            <span className="text-blue-600 dark:text-blue-400">🎯 Goal:</span> {service.goal}
                         </p>
                     </div>
-                    <Link to="/contact" className="w-full max-w-sm mx-auto py-4 bg-slate-900 text-white rounded-2xl font-black text-center block hover:bg-blue-600 transition-colors shadow-lg hover:shadow-blue-200">
+                    <Link to="/contact" className="w-full max-w-sm mx-auto py-4 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-2xl font-black text-center block hover:bg-blue-600 dark:hover:bg-blue-500 dark:hover:text-white transition-all shadow-lg hover:shadow-blue-200 dark:hover:shadow-blue-950/30">
                         Get Started Now
                     </Link>
                 </div>
@@ -189,7 +181,7 @@ const Services: React.FC = () => {
         </div>
 
         {/* Process Section */}
-        <div className="py-24 bg-slate-900 rounded-[3rem] text-white shadow-2xl relative overflow-hidden mb-32">
+        <div className="py-24 bg-slate-900 dark:bg-slate-900/60 rounded-[3rem] text-white shadow-2xl relative overflow-hidden mb-32 border border-slate-800">
             <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600 rounded-full blur-[100px] opacity-10"></div>
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-600 rounded-full blur-[100px] opacity-10"></div>
             
@@ -224,8 +216,8 @@ const Services: React.FC = () => {
         {/* FAQ Section */}
         <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-                <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tighter uppercase">Frequently Asked Questions</h2>
-                <p className="text-slate-600 font-medium">Everything you need to know about starting your project with us.</p>
+                <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-4 tracking-tighter uppercase">Frequently Asked Questions</h2>
+                <p className="text-slate-600 dark:text-slate-400 font-medium">Everything you need to know about starting your project with us.</p>
             </div>
             
             <div className="space-y-4">
@@ -237,16 +229,16 @@ const Services: React.FC = () => {
                     <motion.div 
                         key={i} 
                         initial={false}
-                        className="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-hidden"
+                        className="bg-white dark:bg-slate-900 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden"
                     >
                         <details className="group">
-                            <summary className="flex justify-between items-center w-full px-8 py-6 text-left font-black text-xl text-slate-900 cursor-pointer list-none focus:outline-none">
+                            <summary className="flex justify-between items-center w-full px-8 py-6 text-left font-black text-xl text-slate-900 dark:text-white cursor-pointer list-none focus:outline-none">
                                 {item.q}
                                 <span className="ml-4 transition-transform group-open:rotate-45">
-                                    <Plus className="text-blue-500" size={24} />
+                                    <Plus className="text-blue-500 dark:text-blue-400" size={24} />
                                 </span>
                             </summary>
-                            <div className="px-8 pb-8 pt-2 text-slate-600 font-medium leading-relaxed">
+                            <div className="px-8 pb-8 pt-2 text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
                                 {item.a}
                             </div>
                         </details>

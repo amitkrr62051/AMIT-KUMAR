@@ -7,7 +7,10 @@ import Home from './pages/Home';
 import Services from './pages/Services';
 import Portfolio from './pages/Portfolio';
 import Contact from './pages/Contact';
+import Resume from './pages/Resume';
+import AIChatbot from './components/AIChatbot';
 import { CONTACT_INFO } from './constants';
+import { ThemeProvider } from './components/ThemeContext';
 
 // Scroll to top helper
 const ScrollToTop = () => {
@@ -17,6 +20,57 @@ const ScrollToTop = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
   
+  return null;
+};
+
+// Dynamic SEO / Metadata manager
+const DynamicSEO = () => {
+  const location = useLocation();
+
+  React.useEffect(() => {
+    const path = location.pathname;
+
+    let title = "Amit Kumar | Website Developer, Graphic Designer & Digital Marketer";
+    let description = "Amit Kumar is a professional Website Developer, Graphic Designer and Digital Marketer helping businesses grow with SEO-friendly websites, branding, AI automation and digital marketing solutions.";
+
+    if (path === '/about') {
+      title = "About Amit Kumar | Website Developer & Digital Marketer";
+      description = "Learn about Amit Kumar, a Website Developer, Graphic Designer and Digital Marketing professional specializing in WordPress, Odoo, branding, SEO and AI-powered business solutions.";
+    } else if (path === '/services') {
+      title = "Website Development & Digital Marketing Services | Amit Kumar";
+      description = "Explore professional website development, graphic design, branding, SEO, AI automation, Meta Ads and digital marketing services offered by Amit Kumar.";
+    } else if (path === '/portfolio') {
+      title = "Portfolio | Website Development & Digital Marketing Projects";
+      description = "View Amit Kumar's portfolio featuring websites, branding, SEO, WordPress, Odoo, AI automation and digital marketing projects for businesses across India.";
+    } else if (path === '/testimonials') {
+      title = "Client Testimonials | Amit Kumar Portfolio";
+      description = "Read client testimonials and success stories from businesses that trusted Amit Kumar for website development, branding and digital marketing services.";
+    } else if (path === '/contact') {
+      title = "Contact Amit Kumar | Hire Website Developer & Digital Marketer";
+      description = "Contact Amit Kumar for website development, branding, graphic design, SEO, AI automation and digital marketing services. Let's build your business online.";
+    } else if (path === '/resume') {
+      title = "Amit Kumar Resume | Website Developer & Digital Marketer";
+      description = "Download Amit Kumar's professional resume showcasing experience in website development, graphic design, SEO, WordPress, Odoo and digital marketing.";
+    } else if (path === '/skills') {
+      title = "Skills & Technologies | Amit Kumar";
+      description = "Discover Amit Kumar's technical skills including WordPress, Odoo, HTML, CSS, SEO, AI tools, branding, digital marketing and website optimization.";
+    }
+
+    // Set page title
+    document.title = title;
+
+    // Set meta description
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', description);
+    } else {
+      metaDescription = document.createElement('meta');
+      metaDescription.setAttribute('name', 'description');
+      metaDescription.setAttribute('content', description);
+      document.head.appendChild(metaDescription);
+    }
+  }, [location.pathname]);
+
   return null;
 };
 
@@ -41,22 +95,30 @@ const FloatingWhatsApp = () => (
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <ScrollToTop />
-      <div className="flex flex-col min-h-screen bg-slate-50 text-slate-900 font-sans">
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/portfolio" element={<Portfolio />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
-        <Footer />
-        <FloatingWhatsApp />
-      </div>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <ScrollToTop />
+        <DynamicSEO />
+        <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-300">
+          <Navbar />
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<Home />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/testimonials" element={<Home />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/resume" element={<Resume />} />
+              <Route path="/skills" element={<Home />} />
+            </Routes>
+          </main>
+          <Footer />
+          <FloatingWhatsApp />
+          <AIChatbot />
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 };
 
