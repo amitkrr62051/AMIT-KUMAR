@@ -1,19 +1,29 @@
 import express from 'express';
 import path from 'path';
-import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 
-async function startServer() {
-  // Initialize the Gemini SDK
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY || '',
-    httpOptions: {
-      headers: {
-        'User-Agent': 'aistudio-build',
-      }
-    }
-  });
+// Keep a lazy-loaded variable for GoogleGenAI to avoid crashing on startup
+let aiClient: GoogleGenAI | null = null;
 
+function getAiClient(): GoogleGenAI {
+  if (!aiClient) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error('GEMINI_API_KEY environment variable is not configured.');
+    }
+    aiClient = new GoogleGenAI({
+      apiKey: apiKey,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        }
+      }
+    });
+  }
+  return aiClient;
+}
+
+async function startServer() {
   const app = express();
   const PORT = 3000;
 
@@ -27,11 +37,14 @@ async function startServer() {
         return res.status(400).json({ error: 'Invalid request. "messages" must be an array.' });
       }
 
-      if (!process.env.GEMINI_API_KEY) {
+      const apiKey = process.env.GEMINI_API_KEY;
+      if (!apiKey) {
         return res.status(500).json({ 
           error: 'Gemini API key is not configured. Please set GEMINI_API_KEY in the Secrets panel.' 
         });
       }
+
+      const ai = getAiClient();
 
       // Map frontend messages structure to Gemini contents format
       // Filter to ensure only roles 'user' and 'model' are passed (gemini SDK uses 'user' and 'model')
@@ -107,7 +120,9 @@ GUIDELINES FOR CHATTING:
 
   // Configure Vite or Static server
   if (process.env.NODE_ENV !== 'production') {
-    const vite = await createViteServer({
+    // Dynamic import to prevent top-level require in production
+    const { createServer } = await import('vite');
+    const vite = await createServer({
       server: { middlewareMode: true },
       appType: 'spa',
     });

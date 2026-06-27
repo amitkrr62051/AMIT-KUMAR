@@ -1,5 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'motion/react';
 import { MessageCircle } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -93,6 +94,38 @@ const FloatingWhatsApp = () => (
   </a>
 );
 
+const PageWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1.0] }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+const AnimatedRoutes: React.FC = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+        <Route path="/about" element={<PageWrapper><Home /></PageWrapper>} />
+        <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
+        <Route path="/portfolio" element={<PageWrapper><Portfolio /></PageWrapper>} />
+        <Route path="/testimonials" element={<PageWrapper><Home /></PageWrapper>} />
+        <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+        <Route path="/resume" element={<PageWrapper><Resume /></PageWrapper>} />
+        <Route path="/skills" element={<PageWrapper><Home /></PageWrapper>} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
+
 const App: React.FC = () => {
   return (
     <ThemeProvider>
@@ -102,16 +135,7 @@ const App: React.FC = () => {
         <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-300">
           <Navbar />
           <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<Home />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/portfolio" element={<Portfolio />} />
-              <Route path="/testimonials" element={<Home />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/resume" element={<Resume />} />
-              <Route path="/skills" element={<Home />} />
-            </Routes>
+            <AnimatedRoutes />
           </main>
           <Footer />
           <FloatingWhatsApp />
